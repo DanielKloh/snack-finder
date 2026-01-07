@@ -1,5 +1,8 @@
 <?php
 
+use App\Livewire\Meals\Create;
+use App\Livewire\Meals\Index as MealsIndex;
+use App\Livewire\Meals\Update;
 use App\Livewire\Meats\Create as CreateMeats;
 use App\Livewire\Meats\Index;
 use App\Livewire\Meats\Update as UpdateMeats;
@@ -36,7 +39,7 @@ Route::middleware(['auth'])->group(function () {
         )
         ->name('two-factor.show');
 
-    Route::get('meats', Index::class)->name('meats.index');
-    Route::get('meats/create', CreateMeats::class)->name('meats.create');
-    Route::get('meats/{meat}', UpdateMeats::class)->name('meats.update');
+    Route::get('meals', MealsIndex::class)->name('meals.index');
+    Route::get('meals/create', Create::class)->name('meals.create');
+    Route::get('meals/{meat}', Update::class)->name('meals.update');
 });

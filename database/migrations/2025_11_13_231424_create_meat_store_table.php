@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('meat_store', function (Blueprint $table) {
+        Schema::create('meal_store', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('meat_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('meal_id')->constrained()->cascadeOnDelete();
             $table->foreignId('store_id')->constrained()->cascadeOnDelete();
-            $table->integer('price');
-            $table->string('url');
+            $table->decimal('price', 8, 2);
+            $table->string('url')->nullable();
             $table->string('promo_label')->nullable();
             $table->timestamps();
         });

@@ -10,18 +10,16 @@ class CatalogItem extends Model
     protected $fillable = [
         'store_id',
         'name',
+        'category',
         'url',
         'description',
         'ingredients',
         'price',
     ];
 
-    public function casts(): array
-    {
-        return [
-            'price' => 'integer',
-        ];
-    }
+    protected $casts = [
+        'price' => 'float',
+    ];
 
     public function store(): BelongsTo
     {

@@ -4,20 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class MeatStore extends Pivot
+class MealStore extends Pivot
 {
+    protected $table = 'meal_store';
+
     protected $fillable = [
-        'meat_id',
+        'meal_id',
         'store_id',
         'price',
         'url',
         'promo_label',
     ];
 
-    public function casts(): array
-    {
-        return [
-            'price' => 'integer',
-        ];
-    }
+    protected $casts = [
+        'price' => 'float',
+    ];
 }

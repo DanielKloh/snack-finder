@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Store extends Model
 {
-        protected $fillable = [
+    protected $fillable = [
         'user_id',
         'name',
         'slug',
@@ -21,12 +21,9 @@ class Store extends Model
         'opening_hours',
     ];
 
-    public function casts(): array
-    {
-        return [
-            'opening_hours' => 'array',
-        ];
-    }
+    protected $casts = [
+        'opening_hours' => 'array',
+    ];
 
     public function user(): BelongsTo
     {
@@ -38,10 +35,10 @@ class Store extends Model
         return $this->hasOne(Address::class);
     }
 
-    public function beers(): BelongsToMany
+    public function meals(): BelongsToMany
     {
-        return $this->belongsToMany(Meat::class)
-            ->using(MeatStore::class)
+        return $this->belongsToMany(Meal::class)
+            ->using(MealStore::class)
             ->withPivot('price', 'promo_label', 'url')
             ->withTimestamps();
     }
@@ -58,6 +55,7 @@ class Store extends Model
 
     public function cover(): MorphOne
     {
-        return $this->morphOne(Image::class, 'imageable')->where('is_cover', 1);
+        return $this->morphOne(Image::class, 'imageable')
+            ->where('is_cover', true);
     }
 }

@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->string('slug');
-            $table->string('website');
-            $table->string('phone', 15);
+            $table->string('website')->nullable();
+            $table->string('phone', 15)->nullable();
             $table->json('opening_hours')->nullable();
             $table->timestamps();
         });
