@@ -130,6 +130,7 @@
                                     />
 
                                     <flux:button
+                                        wire:confirm="Você tem certeza de que deseja excluir este registro?"
                                         wire:click="remove({{ $meal->id }})"
                                         variant="ghost"
                                         size="sm"
