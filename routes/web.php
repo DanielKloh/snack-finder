@@ -3,9 +3,6 @@
 use App\Livewire\Meals\Create;
 use App\Livewire\Meals\Index as MealsIndex;
 use App\Livewire\Meals\Update;
-use App\Livewire\Meats\Create as CreateMeats;
-use App\Livewire\Meats\Index;
-use App\Livewire\Meats\Update as UpdateMeats;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -41,5 +38,5 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('meals', MealsIndex::class)->name('meals.index');
     Route::get('meals/create', Create::class)->name('meals.create');
-    Route::get('meals/{meat}', Update::class)->name('meals.update');
+    Route::get('meals/{meal}', Update::class)->name('meals.update');
 });
