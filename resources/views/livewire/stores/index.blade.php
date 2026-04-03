@@ -88,11 +88,11 @@
                                 </x-table.cell>
 
                                 <x-table.cell>
-                                    {{ $store->opening_hours ?? '-' }}
+                                    {{ data_get($store->opening_hours, 'monday', '-') }}
                                 </x-table.cell>
 
                                 <x-table.cell class="flex gap-2">
-                                    <flux:button href="{{ route('stores.edit', $store->id) }}" variant="ghost"
+                                    <flux:button href="{{ route('stores.update', $store->id) }}" variant="ghost"
                                         size="sm" icon="pencil" inset="top bottom" />
 
                                     <flux:button wire:confirm="Você tem certeza que deseja excluir esta loja?"

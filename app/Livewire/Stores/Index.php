@@ -43,6 +43,10 @@ class Index extends Component
     public function remove($id)
     {
         Store::findOrFail($id)->delete();
+
+        return redirect()
+            ->route('stores.index')
+            ->success("Loja deletada com sucesso!");
     }
 
     public function render()
