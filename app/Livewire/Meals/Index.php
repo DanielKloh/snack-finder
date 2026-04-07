@@ -50,9 +50,11 @@ class Index extends Component
         $this->resetPage();
     }
 
-    public function remove($id)
+    public function remove(Meal $meal)
     {
-        Meal::findOrFail($id)->delete();
+        $this->authorize("delete", $meal);
+
+        $meal->delete();
         Toaster::success('Receita deletada com sucesso');
     }
 

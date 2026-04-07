@@ -92,6 +92,9 @@
                                 </x-table.cell>
 
                                 <x-table.cell class="flex gap-2">
+                                    @can()
+                                        
+                                    @endcan
                                     <flux:button href="{{ route('stores.update', $store->id) }}" variant="ghost"
                                         size="sm" icon="pencil" inset="top bottom" />
 

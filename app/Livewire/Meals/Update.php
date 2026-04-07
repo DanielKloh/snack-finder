@@ -13,12 +13,16 @@ class Update extends Component
 
     public function mount(Meal $meal): void
     {
+        $this->authorize("update", $this->meal);
+
         $this->meal = $meal;
         $this->form->setMeal($meal);
     }
 
     public function save()
     {
+        $this->authorize("update", $this->meal);
+
         $this->form->update();
 
         return redirect()

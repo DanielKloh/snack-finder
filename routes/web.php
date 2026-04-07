@@ -10,6 +10,7 @@ use App\Livewire\Settings\TwoFactor;
 use App\Livewire\Stores\Create as StoresCreate;
 use App\Livewire\Stores\Index as IndexStore;
 use App\Livewire\Stores\Update as StoresUpdate;
+use App\Models\Meal;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 
@@ -40,11 +41,10 @@ Route::middleware(['auth'])->group(function () {
         ->name('two-factor.show');
 
     Route::get('meals', MealsIndex::class)->name('meals.index');
-    Route::get('meals/create', Create::class)->name('meals.create');
-    Route::get('meals/{meal}', Update::class)->name('meals.update');
+    Route::get('meals/create', Create::class)->middleware("can:create,\App\Models\Meal")->name('meals.create');
+    Route::get('meals/{meal}', Update::class)->middleware("can:update,meal")->name('meals.update');
 
     Route::get('stores/', IndexStore::class)->name('stores.index');
-    Route::get('stores/create', StoresCreate::class)->name('stores.create');
-    Route::get('stores/{store}', StoresUpdate::class)->name('stores.update');
-
+    Route::get('stores/create', StoresCreate::class)->middleware("can:create,\App\Models\Store")->name('stores.create');
+    Route::get('stores/{store}', StoresUpdate::class)->middleware("can:update,store")->name('stores.update');
 });

@@ -6,9 +6,11 @@
                 <flux:text class="mt-2 mb-6 text-base">Listagem de Refeições</flux:text>
             </div>
 
-            <flux:button href="{{ route('meals.create') }}" icon="plus-circle">
-                Nova Refeição
-            </flux:button>
+            @can('create', \App\Models\Meal::class)
+                <flux:button href="{{ route('meals.create') }}" icon="plus-circle">
+                    Nova Refeição
+                </flux:button>
+            @endcan
         </div>
 
         <x-section>
@@ -17,11 +19,7 @@
             <div class="grid lg:grid-cols-13 gap-4 mb-8 items-end">
 
                 <flux:field class="col-span-3">
-                    <flux:input
-                        label="Nome"
-                        placeholder="Buscar pelo nome da refeição"
-                        wire:model="filters.name"
-                    />
+                    <flux:input label="Nome" placeholder="Buscar pelo nome da refeição" wire:model="filters.name" />
                 </flux:field>
 
                 <flux:field class="col-span-3">
@@ -37,25 +35,15 @@
                 </flux:field>
 
                 <flux:field class="col-span-2">
-                    <flux:checkbox
-                        wire:model="filters.is_for_large_group"
-                        label="Para grupos grandes"
-                    />
+                    <flux:checkbox wire:model="filters.is_for_large_group" label="Para grupos grandes" />
                 </flux:field>
 
                 <flux:field class="col-span-2">
-                    <flux:checkbox
-                        wire:model="filters.is_premium"
-                        label="Premium"
-                    />
+                    <flux:checkbox wire:model="filters.is_premium" label="Premium" />
                 </flux:field>
 
                 <flux:field class="col-span-1">
-                    <flux:button
-                        wire:click="filter"
-                        icon="magnifying-glass"
-                        class="w-full"
-                    />
+                    <flux:button wire:click="filter" icon="magnifying-glass" class="w-full" />
                 </flux:field>
             </div>
 
@@ -73,12 +61,7 @@
                         Dificuldade
                     </x-table.column>
 
-                    <x-table.column
-                        wire:click="sort('average_cost')"
-                        sortable
-                        :sorted="'average_cost'"
-                        :direction="$sortDirection"
-                    >
+                    <x-table.column wire:click="sort('average_cost')" sortable :sorted="'average_cost'" :direction="$sortDirection">
                         Custo médio
                     </x-table.column>
 
@@ -121,24 +104,16 @@
                                 </x-table.cell>
 
                                 <x-table.cell class="flex gap-2">
-                                    <flux:button
-                                        href="{{ route('meals.update', $meal->id) }}"
-                                        variant="ghost"
-                                        size="sm"
-                                        icon="pencil"
-                                        inset="top bottom"
-                                    />
-
-                                    <flux:button
-                                        wire:confirm="Você tem certeza de que deseja excluir este registro?"
-                                        wire:click="remove({{ $meal->id }})"
-                                        variant="ghost"
-                                        size="sm"
-                                        icon="trash"
-                                        inset="top bottom"
-                                    />
+                                    @can('update', $meal)
+                                        <flux:button href="{{ route('meals.update', $meal->id) }}" variant="ghost"
+                                            size="sm" icon="pencil" inset="top bottom" />
+                                    @endcan
+                                    @can('delete', $meal)
+                                        <flux:button wire:confirm="Você tem certeza de que deseja excluir este registro?"
+                                            wire:click="remove({{ $meal->id }})" variant="ghost" size="sm"
+                                            icon="trash" inset="top bottom" />
+                                    @endcan
                                 </x-table.cell>
-
                             </x-table.row>
                         @endforeach
                     </x-table.rows>

@@ -3,6 +3,7 @@
 namespace App\Livewire\Meals;
 
 use App\Livewire\Forms\MealForm;
+use App\Models\Meal;
 use Livewire\Component;
 
 class Create extends Component
@@ -11,6 +12,9 @@ class Create extends Component
 
     public function save()
     {
+
+        $this->authorize("create", Meal::class);
+
         try {
             $this->form->store();
 
