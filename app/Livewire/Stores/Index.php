@@ -3,73 +3,61 @@
 namespace App\Livewire\Stores;
 
 use App\Models\Store;
+use App\Services\StoreService;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Masmerise\Toaster\Toaster;
 
 class Index extends Component
 {
     use WithPagination;
 
-    public $filters = [
-        'name' => null,
-        'phone' => null,
-        'website' => null,
-    ];
+    public string $sortBy = '';
 
-    public $sortField = 'name';
-    public $sortDirection = 'asc';
+    public string $sortDirection = '';
 
-    protected $queryString = [
-        'filters',
-        'sortField',
-        'sortDirection'
-    ];
+    public array $filters = [];
 
-    public function filter()
+    protected StoreService $storeService;
+
+    public function boot(StoreService $storeService): void
     {
+        $this->storeService = $storeService;
+    }
+
+    public function sort(string $sortBy): void
+    {
+        $this->sortBy = $sortBy;
+        $this->sortDirection = ! empty($this->sortDirection) && $this->sortDirection === 'asc' ? 'desc' : 'asc';
         $this->resetPage();
     }
 
-    public function sort($field)
+    public function filter(): void
     {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortField = $field;
-            $this->sortDirection = 'asc';
+        $this->validate([
+            'filters.name' => 'nullable|string|min:3|max:255',
+            'filters.phone' => 'nullable|string|max:15',
+            'filters.website' => 'nullable|string|max:255',
+        ]);
+
+        try {
+            $this->resetPage();
+        } catch (\Exception $e) {
+            Toaster::error("Erro ao aplicar o filtro {$e->getMessage()}");
         }
     }
 
-    public function remove($id)
+    public function remove(Store $store): void
     {
-        Store::findOrFail($id)->delete();
-
-        return redirect()
-            ->route('stores.index')
-            ->success("Loja deletada com sucesso!");
+        $this->authorize('delete', $store);
+        $store->delete();
+        Toaster::info("{$store->name} removida com sucesso!");
     }
 
-    public function render()
+    public function render(): \Illuminate\Contracts\View\View
     {
-        $stores = Store::query()
-            ->when(
-                $this->filters['name'],
-                fn($q) =>
-                $q->where('name', 'like', '%' . $this->filters['name'] . '%')
-            )
-            ->when(
-                $this->filters['phone'],
-                fn($q) =>
-                $q->where('phone', 'like', '%' . $this->filters['phone'] . '%')
-            )
-            ->when(
-                $this->filters['website'],
-                fn($q) =>
-                $q->where('website', 'like', '%' . $this->filters['website'] . '%')
-            )
-            ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate(10);
-
-        return view('livewire.stores.index', compact('stores'));
+        return view('livewire.stores.index', [
+            'stores' => $this->storeService->getStores($this->filters, $this->sortBy, $this->sortDirection),
+        ]);
     }
 }

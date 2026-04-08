@@ -58,7 +58,7 @@ class Index extends Component
         Toaster::success('Receita deletada com sucesso');
     }
 
-    public function render()
+    public function render(): \Illuminate\Contracts\View\View
     {
         return view('livewire.meals.index', [
             'meals' => $this->mealService->getMeals(

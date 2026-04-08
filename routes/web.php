@@ -7,10 +7,9 @@ use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use App\Livewire\Settings\TwoFactor;
+use App\Livewire\Stores\Index as StoreIndex;
 use App\Livewire\Stores\Create as StoresCreate;
-use App\Livewire\Stores\Index as IndexStore;
 use App\Livewire\Stores\Update as StoresUpdate;
-use App\Models\Meal;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 
@@ -44,7 +43,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('meals/create', Create::class)->middleware("can:create,\App\Models\Meal")->name('meals.create');
     Route::get('meals/{meal}', Update::class)->middleware("can:update,meal")->name('meals.update');
 
-    Route::get('stores/', IndexStore::class)->name('stores.index');
+    Route::get('stores', StoreIndex::class)->name('stores.index');
     Route::get('stores/create', StoresCreate::class)->middleware("can:create,\App\Models\Store")->name('stores.create');
     Route::get('stores/{store}', StoresUpdate::class)->middleware("can:update,store")->name('stores.update');
 });
