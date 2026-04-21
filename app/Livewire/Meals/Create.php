@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Meals;
 
+use App\Jobs\ProcessMealJob;
 use App\Livewire\Forms\MealForm;
 use App\Models\Meal;
 use Livewire\Component;
@@ -16,7 +17,9 @@ class Create extends Component
         $this->authorize("create", Meal::class);
 
         try {
-            $this->form->store();
+            $meal = $this->form->store();
+
+            dispatch(new ProcessMealJob($meal));
 
             return redirect()
                 ->route('meals.index')

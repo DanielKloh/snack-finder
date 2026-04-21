@@ -21,7 +21,7 @@ class ImageUploader extends Component
 
     public $existingImages;
 
-    public function removePendingImages(int $index): void
+    public function removePendingImage(int $index): void
     {
         unset($this->images[$index]);
         $this->images = array_values($this->images);

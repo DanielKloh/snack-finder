@@ -39,6 +39,10 @@ Route::middleware(['auth'])->group(function () {
         )
         ->name('two-factor.show');
 
+    Route::get('dashboard', App\Livewire\Chat\Chat::class)
+        ->middleware(['auth', 'verified'])
+        ->name('dashboard');
+
     Route::get('meals', MealsIndex::class)->name('meals.index');
     Route::get('meals/create', Create::class)->middleware("can:create,\App\Models\Meal")->name('meals.create');
     Route::get('meals/{meal}', Update::class)->middleware("can:update,meal")->name('meals.update');
@@ -46,4 +50,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('stores', StoreIndex::class)->name('stores.index');
     Route::get('stores/create', StoresCreate::class)->middleware("can:create,\App\Models\Store")->name('stores.create');
     Route::get('stores/{store}', StoresUpdate::class)->middleware("can:update,store")->name('stores.update');
+
+
+    Route::get('/storage/meals/{filename}', function ($filename) {
+        $path = storage_path('app/private/meals/' . $filename);
+
+        if (!file_exists($path)) {
+            abort(404);
+        }
+
+        return response()->file($path);
+    });
 });
