@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('meal_embeddings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("meal_id")->constrained()->cascadeOnDelete();
-            $table->longText("text");
-            $table->json("metadata");
-            $table->vector("embedding");
+            $table->foreignId('meal_id')->constrained()->cascadeOnDelete();
+            $table->longText('text');
+            $table->json('metadata');
+            $table->vector('embedding');
             $table->timestamps();
         });
     }

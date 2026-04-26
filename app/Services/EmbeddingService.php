@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Beer;
 use App\Models\Meal;
 use Illuminate\Support\Facades\DB;
 use Prism\Prism\Enums\Provider;
@@ -10,7 +9,6 @@ use Prism\Prism\Facades\Prism;
 
 class EmbeddingService
 {
-
     public function generateEmbedding(string $text)
     {
         $response = Prism::embeddings()
@@ -27,7 +25,7 @@ class EmbeddingService
 
         $response = $this->generateEmbedding($query);
 
-        $vectorLiteral = '[' . implode(',', $response->embeddings[0]->embedding) . ']';
+        $vectorLiteral = '['.implode(',', $response->embeddings[0]->embedding).']';
 
         $results = DB::table('meal_embeddings')
             ->select(
@@ -48,7 +46,5 @@ class EmbeddingService
 
         return $meals->toJson(JSON_UNESCAPED_UNICODE);
 
-
     }
-
 }

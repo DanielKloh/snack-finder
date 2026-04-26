@@ -29,15 +29,15 @@ class MeatFactory extends Factory
 
         return [
             // Dados de Identificação
-            'name' => $this->faker->unique()->word() . ' ' . $this->faker->numerify('Corte-####'),
+            'name' => $this->faker->unique()->word().' '.$this->faker->numerify('Corte-####'),
             'cut_type' => $this->faker->randomElement($cutTypes),
             'description' => $this->faker->sentence(10),
-            
+
             // Características Físicas e de Preparo (ENUMS e Números)
             'fat_level' => $this->faker->randomElement($fatLevels),
             'cooking_time_minutes' => $this->faker->numberBetween(10, 180), // De 10 min a 3 horas
             'difficulty' => $this->faker->randomElement($difficulties),
-            
+
             // Foco na Recomendação (Custo e Tags)
             'cost_per_kg_approx' => $this->faker->randomFloat(2, 20, 250), // Preço entre R$ 20,00 e R$ 250,00
             'best_served_with' => $this->faker->sentence(4),

@@ -13,14 +13,13 @@ class Create extends Component
     public function registerStore()
     {
         $this->store->user_id = Auth::id();
-        
+
         $this->store->registerStore();
 
         return redirect()
             ->route('stores.index')
             ->success("Loja {$this->store->name} registrada com sucesso!");
     }
-
 
     public function render()
     {

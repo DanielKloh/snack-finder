@@ -13,6 +13,7 @@ class Index extends Component
     use WithPagination;
 
     public string $sortBy = '';
+
     public string $sortDirection = 'desc';
 
     public array $filters = [];
@@ -46,7 +47,7 @@ class Index extends Component
 
     public function remove(Meal $meal)
     {
-        $this->authorize("delete", $meal);
+        $this->authorize('delete', $meal);
 
         $meal->delete();
         Toaster::success('Receita deletada com sucesso');

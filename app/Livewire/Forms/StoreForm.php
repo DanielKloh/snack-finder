@@ -3,8 +3,6 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Store;
-use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class StoreForm extends Form
@@ -12,13 +10,18 @@ class StoreForm extends Form
     public ?Store $store = null;
 
     public int $id;
-    public string $name;
-    public string $slug;
-    public string $website;
-    public string $phone;
-    public array $opening_hours;
-    public int $user_id;
 
+    public string $name;
+
+    public string $slug;
+
+    public string $website;
+
+    public string $phone;
+
+    public array $opening_hours;
+
+    public int $user_id;
 
     public function rules(): array
     {
@@ -55,7 +58,6 @@ class StoreForm extends Form
         ];
     }
 
-
     public function registerStore(): void
     {
         Store::create($this->validate());
@@ -68,7 +70,7 @@ class StoreForm extends Form
         $this->fill($store->toArray());
     }
 
-    public function update():void
+    public function update(): void
     {
         $this->store->update($this->validate());
     }

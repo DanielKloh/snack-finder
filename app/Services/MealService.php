@@ -22,11 +22,11 @@ class MealService
             $query->where('is_beginner_friendly', $filters['is_beginner_friendly']);
         }
 
-        if (!empty($filters['name'])) {
-            $query->where('name', 'ilike', '%' . $filters['name'] . '%'); // PostgreSQL
+        if (! empty($filters['name'])) {
+            $query->where('name', 'ilike', '%'.$filters['name'].'%'); // PostgreSQL
         }
 
-        if (!empty($filters['cut_type'])) {
+        if (! empty($filters['cut_type'])) {
             $query->where('cut_type', $filters['cut_type']);
         }
 

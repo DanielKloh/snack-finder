@@ -14,7 +14,7 @@ class Create extends Component
     public function save()
     {
 
-        $this->authorize("create", Meal::class);
+        $this->authorize('create', Meal::class);
 
         try {
             $meal = $this->form->store();

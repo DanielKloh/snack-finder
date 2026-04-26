@@ -37,12 +37,12 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
-        
+
         User::created([
-            "name" => "admin",
-            "email" => "admin@teste.com",
-            "password" => bcrypt("password"),
-            "is_admin" => true,
+            'name' => 'admin',
+            'email' => 'admin@teste.com',
+            'password' => bcrypt('password'),
+            'is_admin' => true,
         ]);
     }
 

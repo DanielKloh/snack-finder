@@ -10,11 +10,12 @@ use Livewire\Component;
 class Update extends Component
 {
     public Meal $meal;
+
     public MealForm $form;
 
     public function mount(Meal $meal): void
     {
-        $this->authorize("update", $this->meal);
+        $this->authorize('update', $this->meal);
 
         $this->meal = $meal;
         $this->form->setMeal($meal);
@@ -22,7 +23,7 @@ class Update extends Component
 
     public function save()
     {
-        $this->authorize("update", $this->meal);
+        $this->authorize('update', $this->meal);
 
         $meal = $this->form->update();
 

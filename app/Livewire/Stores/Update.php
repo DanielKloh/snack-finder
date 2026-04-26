@@ -9,6 +9,7 @@ use Livewire\Component;
 class Update extends Component
 {
     public Store $store;
+
     public StoreForm $form;
 
     public function mount(Store $store): void

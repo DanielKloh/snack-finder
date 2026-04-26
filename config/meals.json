@@ -1,0 +1,53 @@
+[
+  {
+    "name": "Salchipão",
+    "category": "Lanche",
+    "description": "O salchipão é um clássico lanche gaúcho, caracterizado por um pão, geralmente tipo cacetinho, recheado com um salsichão assado. É uma opção saborosa, econômica e popular, muitas vezes consumida como um 'sanduíche de sobra' após churrascos ou com linguiças grelhadas na brasa.",
+    "preparation_time_minutes": 60,
+    "difficulty": "easy",
+    "fat_level": "medium",
+    "protein_level": "medium",
+    "average_cost": 50.00,
+    "best_served_with": "refrigerante ou suco natural",
+    "recommendation_notes": "ideal para refeições rápidas e informais, muito consumido à noite e em eventos, altamente personalizável com diferentes molhos e adicionais",
+    "is_premium": false,
+    "is_for_large_group": false,
+    "is_beginner_friendly": true,
+    "is_vegetarian": false,
+    "is_vegan": false
+  },
+  {
+    "name": "Salada",
+    "category": "Lanche",
+    "description": "Um monte de verduras e legumes bem gostosos",
+    "preparation_time_minutes": 60,
+    "difficulty": "easy",
+    "fat_level": "low",
+    "protein_level": "low",
+    "average_cost": 10.00,
+    "best_served_with": "Limão ou azeite de oliva",
+    "recommendation_notes": "ideal par quem quer uma refeição saudavel e nutritiva",
+    "is_premium": false,
+    "is_for_large_group": false,
+    "is_beginner_friendly": true,
+    "is_vegetarian": true,
+    "is_vegan": true
+  },
+  {
+    "name": "Salada de frutas",
+    "category": "Lanche",
+    "description": "Um monte de frutas bem gostosos em uma tigela",
+    "preparation_time_minutes": 10,
+    "difficulty": "easy",
+    "fat_level": "low",
+    "protein_level": "low",
+    "average_cost": 10.00,
+    "best_served_with": "Um suco natural de limão",
+    "recommendation_notes": "ideal par quem quer uma refeição saudavel e nutritiva",
+    "is_premium": false,
+    "is_for_large_group": false,
+    "is_beginner_friendly": true,
+    "is_vegetarian": true,
+    "is_vegan": true
+  }
+]

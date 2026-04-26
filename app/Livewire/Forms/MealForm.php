@@ -10,24 +10,33 @@ class MealForm extends Form
     public ?Meal $meal = null;
 
     public string $name;
+
     public string $category;
+
     public ?string $description = null;
 
     public int $preparation_time_minutes;
+
     public string $difficulty = 'easy';
 
     public ?string $fat_level = null;
+
     public ?string $protein_level = null;
 
     public float $average_cost;
 
     public ?string $best_served_with = null;
+
     public ?string $recommendation_notes = null;
 
     public bool $is_premium = false;
+
     public bool $is_for_large_group = false;
+
     public bool $is_beginner_friendly = false;
+
     public bool $is_vegetarian = false;
+
     public bool $is_vegan = false;
 
     public function rules(): array

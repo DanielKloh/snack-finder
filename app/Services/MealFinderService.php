@@ -12,10 +12,7 @@ use Prism\Prism\Schema\StringSchema;
 
 class MealFinderService
 {
-
-    public function __construct(protected EmbeddingService $embeddingService)
-    {
-    }
+    public function __construct(protected EmbeddingService $embeddingService) {}
 
     public function agent(string $userMessage): array
     {
@@ -35,17 +32,17 @@ class MealFinderService
                             'query',
                             'Descrição da refeição, preferências de sabor ou contexto de harmonização fornecido pelo usuário'
                         )
-                        ->using(fn($query) => $this->embeddingService->queryEmbeddingMeals($query))
+                        ->using(fn ($query) => $this->embeddingService->queryEmbeddingMeals($query)),
                 ])
                 ->withToolChoice(ToolChoice::Auto)
                 ->asStructured();
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             return [
-                'text' => "Ocorreu um erro ao gerar a resposta",
-                'meals' => []
+                'text' => 'Ocorreu um erro ao gerar a resposta',
+                'meals' => [],
             ];
         }
+
         return $response->structured;
     }
 
@@ -94,5 +91,4 @@ class MealFinderService
 
         return $schema;
     }
-
 }

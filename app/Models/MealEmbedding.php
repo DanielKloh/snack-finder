@@ -11,14 +11,14 @@ class MealEmbedding extends Model
         'meal_id',
         'text',
         'metadata',
-        'embedding'
+        'embedding',
     ];
 
     protected function casts(): array
     {
         return [
             'metadata' => 'json',
-            'embedding' => 'json'
+            'embedding' => 'json',
         ];
     }
 

@@ -65,7 +65,7 @@ class Store extends Model
     #[Scope]
     public function userScope(Builder $query)
     {
-        if (!Auth::user()->is_admin) {
+        if (! Auth::user()->is_admin) {
             $query->where('user_id', Auth::id());
         }
 

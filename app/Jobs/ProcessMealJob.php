@@ -7,7 +7,6 @@ use App\Models\MealEmbedding;
 use App\Services\EmbeddingService;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Support\Facades\Log;
 use Prism\Prism\Enums\Provider;
 use Prism\Prism\Facades\Prism;
 
@@ -29,19 +28,19 @@ class ProcessMealJob implements ShouldQueue
     public function handle(EmbeddingService $embeddingService): void
     {
 
-        $response = Prism::text()->using(Provider::OpenAI, "gpt-4.1-mini")->withSystemPrompt(view("prompts.brewer_tips_agent"))
-            ->withPrompt($this->meal->toJson())->withClientOptions(["timeout" => 999])->asText();
+        $response = Prism::text()->using(Provider::OpenAI, 'gpt-4.1-mini')->withSystemPrompt(view('prompts.brewer_tips_agent'))
+            ->withPrompt($this->meal->toJson())->withClientOptions(['timeout' => 999])->asText();
 
         $embedding = $embeddingService->generateEmbedding($response->text);
 
-        $meal = MealEmbedding::where("meal_id", $this->meal->id)->get();
-        
+        $meal = MealEmbedding::where('meal_id', $this->meal->id)->get();
+
         if ($meal) {
-            MealEmbedding::where("meal_id", $this->meal->id)->delete();
+            MealEmbedding::where('meal_id', $this->meal->id)->delete();
         }
 
         MealEmbedding::create([
-            "meal_id" => $this->meal->id,
+            'meal_id' => $this->meal->id,
             'text' => $response->text,
             'metadata' => $this->meal->toArray(),
             'embedding' => $embedding->embeddings[0]->embedding,
