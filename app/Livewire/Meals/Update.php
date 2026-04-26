@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Meals;
 
+use App\Jobs\ProcessMealJob;
 use App\Livewire\Forms\MealForm;
 use App\Models\Meal;
 use Livewire\Component;
@@ -23,7 +24,9 @@ class Update extends Component
     {
         $this->authorize("update", $this->meal);
 
-        $this->form->update();
+        $meal = $this->form->update();
+
+        dispatch(new ProcessMealJob($meal));
 
         return redirect()
             ->route('meals.index')

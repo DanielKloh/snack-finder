@@ -1,5 +1,7 @@
 # meat-finder
 
+update de refeiçãõ atualiza os metadados e os embeddings
+
 Descrição do projeto
 
 Fazer as lojas funcionarem

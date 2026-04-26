@@ -33,12 +33,6 @@ class Index extends Component
 
     public function filter()
     {
-        $this->filters = array_merge([
-            'is_for_large_group' => false,
-            'is_premium' => false,
-            'is_beginner_friendly' => false,
-        ], $this->filters);
-
         $this->validate([
             'filters.name' => 'nullable|string|min:3|max:255',
             'filters.cut_type' => 'nullable|string',

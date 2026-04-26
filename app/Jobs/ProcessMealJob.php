@@ -28,18 +28,23 @@ class ProcessMealJob implements ShouldQueue
      */
     public function handle(EmbeddingService $embeddingService): void
     {
-       
-            $response = Prism::text()->using(Provider::OpenAI, "gpt-4.1-mini")->withSystemPrompt(view("prompts.brewer_tips_agent"))
-                ->withPrompt($this->meal->toJson())->withClientOptions(["timeout" => 999])->asText();
 
-            $embedding = $embeddingService->generateEmbedding($response->text);
+        $response = Prism::text()->using(Provider::OpenAI, "gpt-4.1-mini")->withSystemPrompt(view("prompts.brewer_tips_agent"))
+            ->withPrompt($this->meal->toJson())->withClientOptions(["timeout" => 999])->asText();
 
-            MealEmbedding::create([
-                "meal_id" => $this->meal->id,
-                'text' => $response->text,
-                'metadata' => $this->meal->toArray(),
-                'embedding' => $embedding->embeddings[0]->embedding,
-            ]);
+        $embedding = $embeddingService->generateEmbedding($response->text);
+
+        $meal = MealEmbedding::where("meal_id", $this->meal->id)->get();
         
+        if ($meal) {
+            MealEmbedding::where("meal_id", $this->meal->id)->delete();
+        }
+
+        MealEmbedding::create([
+            "meal_id" => $this->meal->id,
+            'text' => $response->text,
+            'metadata' => $this->meal->toArray(),
+            'embedding' => $embedding->embeddings[0]->embedding,
+        ]);
     }
 }
