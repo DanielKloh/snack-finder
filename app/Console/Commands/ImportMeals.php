@@ -20,7 +20,7 @@ class ImportMeals extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Importação de refeições';
 
     /**
      * Execute the console command.
@@ -30,7 +30,7 @@ class ImportMeals extends Command
         $jsonPath = config_path('meals.json');
 
         $jsonData = json_decode(file_get_contents($jsonPath), true);
-dd($jsonData);
+
         if (! is_array($jsonData)) {
             exit("Erro ao ler o json \n");
         }
